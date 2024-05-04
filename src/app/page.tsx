@@ -6,14 +6,14 @@ import MainFeed from "@/components/MainFeed";
 import axios from "axios";
 import { singleNews } from "@/interfaces/interfaces";
 import Navbar from "@/components/Navbar";
+
 export default function Home() {
   const [feedNews, setFeedNews] = useState([] as Array<singleNews>);
 
   useEffect(() => {
     (async function () {
-      console.log("api key", process.env.NEWS_API_KEY);
       const res = await axios.get(
-        `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${process.env.NEWS_API_KEY}`
+        `https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=${process.env.NEXT_PUBLIC_NEWSAPI}`
       );
       const data = res.data.articles;
       setFeedNews(data);

@@ -6,7 +6,7 @@ export async function GET(request: Request) {
     service: "gmail",
     auth: {
       user: "harshjha872",
-      pass: process.env.MAIL_PASSWORD,
+      pass: process.env.NEXT_PUBLIC_MAIL_PASSWORD,
     },
   });
 
