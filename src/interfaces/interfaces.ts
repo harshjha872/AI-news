@@ -1,13 +1,8 @@
 export interface singleNews {
-  author: string;
-  content: string;
-  description: string;
-  publishedAt: string;
-  source: {
-    id: string;
-    name: string;
-  };
   title: string;
-  url: string;
-  urlToImage: string;
+  description: string;
+  link: string;
+  date: string;
+  categories: Array<string>;
+  creator: string;
 }

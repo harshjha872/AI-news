@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 
 const SingleNewsCard = ({ news }: { news: singleNews }) => {
-  const date = new Date(news.publishedAt);
+  const date = new Date(news.date);
   const day = date.getDate();
   const monthIndex = date.getMonth();
   const year = date.getFullYear();
@@ -28,7 +28,7 @@ const SingleNewsCard = ({ news }: { news: singleNews }) => {
     <div className="py-8 flex flex-wrap md:flex-nowrap">
       <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
         <span className="font-semibold title-font text-white">
-          {news.author}
+          {news.creator}
         </span>
         <span className="mt-1 text-zinc-500 text-sm">{formattedDate}</span>
       </div>
@@ -39,7 +39,7 @@ const SingleNewsCard = ({ news }: { news: singleNews }) => {
         <p className="leading-relaxed">{news.description}</p>
         <Link
           target="_blank"
-          href={news.url}
+          href={news.link}
           className="text-indigo-400 inline-flex items-center mt-4"
         >
           Learn More

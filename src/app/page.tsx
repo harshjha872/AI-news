@@ -6,10 +6,12 @@ import MainFeed from "@/components/MainFeed";
 import axios from "axios";
 import { singleNews } from "@/interfaces/interfaces";
 import Navbar from "@/components/Navbar";
+import { fetchAINews } from "./api/action";
+import { toast } from "sonner";
 
 export default function Home() {
   const [feedNews, setFeedNews] = useState([] as Array<singleNews>);
-
+  const [loading, setLoading] = useState(true);
   const currentDate = new Date();
 
   const startDate = new Date(currentDate);
@@ -17,15 +19,12 @@ export default function Home() {
 
   useEffect(() => {
     (async function () {
-      const res = await axios.get(
-        `https://newsapi.org/v2/everything?q=ai&from=${formatDate(
-          startDate
-        )}&to=${formatDate(currentDate)}&pageSize=15&apiKey=${
-          process.env.NEXT_PUBLIC_NEWSAPI
-        }`
-      );
-      const data = res.data.articles;
-      setFeedNews(data);
+      const news = await fetchAINews();
+      if (news.length !== 0) setFeedNews(news);
+      else {
+        console.log("error in getting news");
+        toast.error("Something went wrong!");
+      }
     })();
   }, []);
 
@@ -37,11 +36,4 @@ export default function Home() {
       {feedNews.length > 0 && <MainFeed News={feedNews} />}
     </>
   );
-}
-
-function formatDate(date: Date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
 }
