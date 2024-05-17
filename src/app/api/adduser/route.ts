@@ -25,5 +25,6 @@ export async function POST(request: Request, response: Response) {
     }
   } catch (err) {
     console.log(err);
+    return new Response("something went wrong!", { status: 500 });
   }
 }
