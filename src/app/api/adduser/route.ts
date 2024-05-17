@@ -15,15 +15,15 @@ export async function POST(request: Request, response: Response) {
 
     if (existingUser) {
       return new Response("user already subscribed", { status: 400 });
+    } else {
+      const user = await prisma.subscribers.create({
+        data: {
+          email: email,
+        },
+      });
+      return new Response("success", { status: 200 });
     }
-
-    const user = await prisma.subscribers.create({
-      data: {
-        email: email,
-      },
-    });
   } catch (err) {
     console.log(err);
   }
-  return new Response("success", { status: 200 });
 }
