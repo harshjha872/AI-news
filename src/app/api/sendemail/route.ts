@@ -25,14 +25,7 @@ export async function GET(request: Request, response: Response) {
     if (news.length > 0) {
       let newsHtml = "";
       news.forEach((singleNews: singleNews) => {
-        if (
-          singleNews.categories.includes("ai") ||
-          singleNews.categories.includes("artificial") ||
-          singleNews.categories.includes("ai chips") ||
-          singleNews.categories.includes("ai and society") ||
-          singleNews.categories.includes("ai research")
-        )
-          newsHtml += `<div>${singleNews.categories[0]} - ${singleNews.description}<a href="${singleNews.link}" target="_blank"> more</a></div><br>`;
+        newsHtml += `<div>${singleNews.categories[0]} - ${singleNews.description}<a href="${singleNews.link}" target="_blank"> more</a></div><br>`;
       });
 
       const info = await transporter.sendMail({
