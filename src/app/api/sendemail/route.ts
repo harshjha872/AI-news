@@ -38,7 +38,7 @@ export async function GET(request: Request, response: Response) {
       console.log("info", info);
       return NextResponse.json({
         message: "email is sent successfully",
-        nodemailer_response: info.response,
+        nodemailer_response: info,
       });
     } else {
       return NextResponse.json({
