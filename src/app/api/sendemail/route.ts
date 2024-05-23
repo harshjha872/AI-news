@@ -20,7 +20,7 @@ export async function GET(request: Request, response: Response) {
 
     const news = await fetchAINews();
 
-    console.log(news);
+    // console.log(news);
 
     if (news.length > 0) {
       let newsHtml = "";
@@ -35,12 +35,19 @@ export async function GET(request: Request, response: Response) {
         html: `<b>Latest AI News</b><br><br>${newsHtml}`, // html body
         bcc: `${receivers}`,
       });
-      return NextResponse.json({ message: "email is sent successfully" });
+      console.log("info", info);
+      return NextResponse.json({
+        message: "email is sent successfully",
+        nodemailer_response: info.response,
+      });
     } else {
-      return NextResponse.json({ message: "something went wrong!" });
+      return NextResponse.json({
+        message: "something went wrong!",
+        err: "news length 0",
+      });
     }
   } catch (err) {
     console.log("In sending email to subs", err);
-    return NextResponse.json({ message: "something went wrong!" });
+    return NextResponse.json({ message: "something went wrong!", err: err });
   }
 }
